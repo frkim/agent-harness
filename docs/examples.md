@@ -62,7 +62,7 @@ sequenceDiagram
             Git-->>Harness: Confirmed result
             Harness-->>User: Publication result
         else Rejected or expired
-            Harness-->>User: Patch retained; nothing published
+            Harness-->>User: Patch retained, nothing published
         end
     end
 ```
