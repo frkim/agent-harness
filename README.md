@@ -47,15 +47,13 @@ The implementation chapters were reviewed against official online sources on
 
 ## Harness evaluation
 
-The [harness evaluation page](docs/harness-evaluation.html) compares six coding,
+The [harness evaluation page](docs/harness-evaluation.md) compares six coding,
 orchestration, and managed-runtime options with a weighted rubric, final scores,
 star ratings, a needs-based decision tree, and an independent Gartner-style
 capability quadrant. Scores are dated editorial assessments, not benchmark
 results or Gartner research.
+Read it directly on GitHub as a rendered Markdown page.
 
-Download or clone the repository and open `docs/harness-evaluation.html` in a
-browser; GitHub's file view displays the HTML source rather than the rendered
-page. No build, installation, or server is required.
 ## Presentation
 
 A 45-minute [Marp](https://marp.app/) deck walks through the whole guide:
