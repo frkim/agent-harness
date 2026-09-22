@@ -45,6 +45,14 @@ The implementation chapters were reviewed against official online sources on
 | [DeepSeek Harness](docs/deepseek.md) | Plugin-based agent runtime (developer preview), distinct from the model API |
 | [LangGraph](docs/langgraph.md) | Stateful workflow orchestration, persistence, and human checkpoints |
 
+## Presentation
+
+A 45-minute [Marp](https://marp.app/) deck walks through the whole guide:
+[`docs/presentations/agent-harness-45min.md`](docs/presentations/agent-harness-45min.md).
+The [presentations README](docs/presentations/README.md) explains how to
+preview and export it locally. Pushes to `main` publish the rendered HTML and
+PDF to GitHub Pages at <https://frkim.github.io/agent-harness/>.
+
 ## Contributing
 
 Keep documentation practical, implementation-agnostic where possible, and

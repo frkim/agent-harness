@@ -427,3 +427,7 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Local build output for presentations and throwaway scripts
+tmp/
+site/
