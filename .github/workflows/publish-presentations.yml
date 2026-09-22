@@ -1,0 +1,67 @@
+name: publish-presentations
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/presentations/**'
+      - '.github/workflows/publish-presentations.yml'
+  pull_request:
+    paths:
+      - 'docs/presentations/**'
+      - '.github/workflows/publish-presentations.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-presentations-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  MARP_VERSION: 4.5.1
+  DECK: docs/presentations/agent-harness-45min.md
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+
+      - name: Build the HTML deck
+        run: |
+          npx --yes "@marp-team/marp-cli@${MARP_VERSION}" "${DECK}" \
+            --html --output site/index.html
+
+      - name: Build the PDF deck with speaker notes
+        run: |
+          npx --yes "@marp-team/marp-cli@${MARP_VERSION}" "${DECK}" \
+            --pdf --pdf-notes --output site/agent-harness-45min.pdf
+
+      - name: Upload the Pages artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
