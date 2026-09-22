@@ -34,12 +34,14 @@ Read them in order, or jump to the topic you need:
 These chapters map the design guide to specific tools and platforms. They are
 not dependencies or runnable integrations of this repository. Product behavior
 varies by version and deployment; consult the official sources in each chapter.
+The implementation chapters were reviewed against official online sources on
+**2026-09-22**; default-branch documentation may be ahead of installed releases.
 
 | Implementation | Layer covered |
 | --- | --- |
 | [Microsoft: Foundry and Agent Framework](docs/microsoft.md) | Managed agent service and code-first orchestration framework |
 | [Claude: Claude Code and Agent SDK](docs/claude.md) | Coding harness and programmable agent runtime |
-| [OpenAI Codex](docs/codex.md) | Coding agent, CLI automation, and SDK integration |
+| [OpenAI Codex](docs/codex.md) | Coding agent, CLI/SDK automation, and App Server integration |
 | [DeepSeek Harness](docs/deepseek.md) | Plugin-based agent runtime (developer preview), distinct from the model API |
 | [LangGraph](docs/langgraph.md) | Stateful workflow orchestration, persistence, and human checkpoints |
 

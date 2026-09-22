@@ -2,6 +2,8 @@
 
 [Back to the guide](../README.md) · [Core model](foundations.md#core-model)
 
+Source review: **2026-09-22**, using official documentation and framework examples.
+
 ## What each layer provides
 
 Microsoft Foundry Agent Service and Microsoft Agent Framework are related but
@@ -44,6 +46,24 @@ boundaries. An in-process session is not automatically durable across restarts;
 select and test the relevant storage or checkpoint mechanism. Persist pending
 approvals with the exact action, caller, resource, and expiry.
 
+Hosted agents also have a compute-session boundary. The
+[hosted-agent documentation](https://github.com/MicrosoftDocs/azure-ai-docs/blob/main/articles/foundry/agents/concepts/hosted-agents.md)
+describes per-session VM-isolated sandboxes and restoration of persisted session
+files after idle deprovisioning. Filesystem restoration, conversation history,
+and a framework workflow checkpoint are separate recovery mechanisms.
+
+Foundry's [long-running hosted-agent resilience](https://github.com/MicrosoftDocs/azure-ai-docs/blob/main/articles/foundry/agents/concepts/long-running-agent-resilience.md)
+is documented as **preview**. Background execution alone is not crash recovery:
+stored background Responses require explicit resilient-execution opt-in.
+Recovery reenters the handler from its beginning, not its previous call stack.
+Persist application progress and make external effects idempotent or reconcilable.
+
+For framework approvals that must survive restarts, use workflow checkpointing
+and restore the pending human-input request. The official
+[checkpoint and human-input example](https://github.com/microsoft/agent-framework/blob/main/python/samples/03-workflows/checkpoint/checkpoint_with_human_in_the_loop.py)
+illustrates this separately from session reuse; its demonstration storage setup
+is not a production retention policy.
+
 Managed hosting does not make a tool's external credentials least-privileged.
 The application must authenticate the approver, recheck authorization before
 execution, and reconcile uncertain writes rather than assuming a checkpoint
@@ -56,12 +76,17 @@ Use a harmless mock send tool. Reject an approval and confirm that it is never
 called; approve a specific payload and confirm that only that payload is sent.
 Change the payload or tenant and require a new decision. Separately restart the
 application to check conversation recovery and pending approval handling.
+For hosted resilience, terminate the process during a mock operation and verify
+recovery under the selected opt-in settings without duplicating the side effect.
 
 ## Official sources
 
 - [Foundry Agent Service overview](https://github.com/MicrosoftDocs/azure-ai-docs/blob/main/articles/foundry/agents/overview.md)
 - [Foundry MCP tools and approvals](https://github.com/MicrosoftDocs/azure-ai-docs/blob/main/articles/foundry/agents/how-to/tools/model-context-protocol.md)
 - [Agent Framework function approval and sessions example](https://github.com/microsoft/agent-framework/blob/main/python/samples/02-agents/tools/function_tool_with_approval_and_sessions.py)
+- [Hosted-agent compute and session lifecycle](https://github.com/MicrosoftDocs/azure-ai-docs/blob/main/articles/foundry/agents/concepts/hosted-agents.md)
+- [Long-running hosted-agent resilience (preview)](https://github.com/MicrosoftDocs/azure-ai-docs/blob/main/articles/foundry/agents/concepts/long-running-agent-resilience.md)
+- [Workflow checkpointing with human input](https://github.com/microsoft/agent-framework/blob/main/python/samples/03-workflows/checkpoint/checkpoint_with_human_in_the_loop.py)
 
 The example APIs evolve independently of the design principles. Check the
 documentation for your selected service API and framework version.
