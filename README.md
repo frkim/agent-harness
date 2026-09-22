@@ -40,7 +40,7 @@ varies by version and deployment; consult the official sources in each chapter.
 | [Microsoft: Foundry and Agent Framework](docs/microsoft.md) | Managed agent service and code-first orchestration framework |
 | [Claude: Claude Code and Agent SDK](docs/claude.md) | Coding harness and programmable agent runtime |
 | [OpenAI Codex](docs/codex.md) | Coding agent, CLI automation, and SDK integration |
-| [DeepSeek](docs/deepseek.md) | Model API and tool-calling loop for a harness you supply |
+| [DeepSeek Harness](docs/deepseek.md) | Plugin-based agent runtime (developer preview), distinct from the model API |
 | [LangGraph](docs/langgraph.md) | Stateful workflow orchestration, persistence, and human checkpoints |
 
 ## Contributing

@@ -91,6 +91,7 @@ documentation for current behavior and configuration.
 | Project or product | Relevant capabilities | Design lesson and boundary |
 | --- | --- | --- |
 | [LangGraph](https://docs.langchain.com/oss/python/langgraph/overview) | Stateful orchestration, durable execution, and human-in-the-loop workflows | Resumable approval checkpoints need configured persistence and thread identity; orchestration is not an authorization system. |
+| [DeepSeek Harness](deepseek.md) | Plugin-based agent loop, tools, runtime profiles, and session persistence | An unaudited developer preview; plugin composition and approval prompts are not substitutes for independent isolation. |
 | [OpenAI Agents SDK](https://openai.github.io/openai-agents-python/) | Agent/tool orchestration, handoffs, guardrails, and tracing | Agent-level input/output guardrails do not inspect every intermediate tool call; enforce authorization at tool execution boundaries. |
 | [OpenHands](https://docs.openhands.dev/sdk) | Software-development tools, Docker workspaces, and configurable action confirmation | Runtime isolation and approval policies are separate controls; confirmation behavior depends on configuration. |
 | [GitHub Copilot cloud agent](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent) | Repository-oriented work in an ephemeral environment, test/lint execution, and reviewable changes | A reviewable pull request is an artifact, not proof of correctness; humans still review changes and verification evidence. |
