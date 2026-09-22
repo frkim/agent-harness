@@ -175,7 +175,7 @@ sequenceDiagram
         Harness->>State: Record external result
         Harness-->>User: Evidence report and draft PR
     else Rejected, expired, or changed
-        Harness-->>User: Patch retained; nothing published
+        Harness-->>User: Patch retained, nothing published
     end
 ```
 
