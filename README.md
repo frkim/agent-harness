@@ -45,6 +45,17 @@ The implementation chapters were reviewed against official online sources on
 | [DeepSeek Harness](docs/deepseek.md) | Plugin-based agent runtime (developer preview), distinct from the model API |
 | [LangGraph](docs/langgraph.md) | Stateful workflow orchestration, persistence, and human checkpoints |
 
+## Harness evaluation
+
+The [harness evaluation page](docs/harness-evaluation.html) compares six coding,
+orchestration, and managed-runtime options with a weighted rubric, final scores,
+star ratings, a needs-based decision tree, and an independent Gartner-style
+capability quadrant. Scores are dated editorial assessments, not benchmark
+results or Gartner research.
+
+Download or clone the repository and open `docs/harness-evaluation.html` in a
+browser; GitHub's file view displays the HTML source rather than the rendered
+page. No build, installation, or server is required.
 ## Presentation
 
 A 45-minute [Marp](https://marp.app/) deck walks through the whole guide:
