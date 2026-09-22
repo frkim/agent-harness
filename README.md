@@ -56,6 +56,13 @@ results or Gartner research.
 Download or clone the repository and open `docs/harness-evaluation.html` in a
 browser; GitHub's file view displays the HTML source rather than the rendered
 page. No build, installation, or server is required.
+## Presentation
+
+A 45-minute [Marp](https://marp.app/) deck walks through the whole guide:
+[`docs/presentations/agent-harness-45min.md`](docs/presentations/agent-harness-45min.md).
+The [presentations README](docs/presentations/README.md) explains how to
+preview and export it locally. Pushes to `main` publish the rendered HTML and
+PDF to GitHub Pages at <https://frkim.github.io/agent-harness/>.
 
 ## Contributing
 
