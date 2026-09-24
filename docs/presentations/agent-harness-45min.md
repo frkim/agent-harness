@@ -1014,6 +1014,7 @@ results. Reweight them for your own requirements.
 
 Cost, model quality, latency, licensing, and data residency are excluded —
 treat them as adoption gates. **A lower total can still be the better fit.**
+Snapshot dated 2026-09-22; recheck your version, plan, region, and deployment.
 
 <!--
 Full scorecard, per-dimension rationale, and the capability quadrant are in
