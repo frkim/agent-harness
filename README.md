@@ -80,7 +80,9 @@ Read it directly on GitHub as a rendered Markdown page.
 
 ## Presentation
 
-A 45-minute [Marp](https://marp.app/) deck walks through the whole guide:
+A 45-minute [Marp](https://marp.app/) deck walks through the whole guide —
+foundations, execution, safety and verification, operations, the worked
+example, and how to choose a harness:
 [`docs/presentations/agent-harness-45min.md`](docs/presentations/agent-harness-45min.md).
 The [presentations README](docs/presentations/README.md) explains how to
 preview and export it locally. Pushes to `main` publish the rendered HTML and
