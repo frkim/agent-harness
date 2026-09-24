@@ -8,18 +8,78 @@ author: "Agent Harness contributors"
 style: |
   section {
     font-size: 26px;
+    color: #101a35;
+    background:
+      linear-gradient(90deg, #4338ca 0%, #7c3aed 50%, #06b6d4 100%) top left / 100% 12px no-repeat,
+      linear-gradient(135deg, #ffffff 0%, #f3f6ff 55%, #ecfeff 100%);
+  }
+  section h1,
+  section h2 {
+    color: #312e81;
+  }
+  section h2 {
+    padding-bottom: 10px;
+    background-image: linear-gradient(90deg, #7c3aed, #06b6d4);
+    background-repeat: no-repeat;
+    background-size: 160px 6px;
+    background-position: 0 100%;
+  }
+  section strong {
+    color: #be123c;
+  }
+  section blockquote {
+    border-left: 8px solid #7c3aed;
+    background: #f5f3ff;
+    border-radius: 0 12px 12px 0;
+    padding: 12px 18px;
+  }
+  section pre {
+    border-left: 8px solid #06b6d4;
+    border-radius: 10px;
   }
   section.lead {
     text-align: center;
+    color: #ffffff;
+    background:
+      linear-gradient(90deg, #22d3ee 0%, #f472b6 50%, #fbbf24 100%) top left / 100% 12px no-repeat,
+      linear-gradient(135deg, #312e81 0%, #6d28d9 50%, #0e7490 100%);
   }
   section.lead h1 {
     font-size: 54px;
+    color: #ffffff;
+  }
+  section.lead h2,
+  section.lead h3 {
+    color: #ffffff;
+    background-image: none;
+  }
+  section.lead a {
+    color: #67e8f9;
+  }
+  section.lead strong {
+    color: #fde68a;
+  }
+  section.lead::after,
+  section.lead footer {
+    color: #ddd6fe;
   }
   section.dense {
     font-size: 22px;
   }
   table {
     font-size: 22px;
+    border-collapse: collapse;
+  }
+  th {
+    background: linear-gradient(90deg, #4338ca, #7c3aed);
+    color: #ffffff;
+    border-color: #c7d2fe;
+  }
+  td {
+    border-color: #d8dff2;
+  }
+  tr:nth-child(even) td {
+    background: #eef2ff;
   }
   section.dense table {
     font-size: 20px;
@@ -27,9 +87,87 @@ style: |
   code {
     font-size: 0.85em;
   }
+  section > p > code,
+  section li > code {
+    background: #eef2ff;
+    color: #3730a3;
+    border-radius: 6px;
+  }
   footer {
     font-size: 16px;
+    color: #475569;
   }
+  .row {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+    justify-content: center;
+    margin: 8px 0;
+  }
+  .col {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .node {
+    flex: 1;
+    border-radius: 14px;
+    padding: 12px 14px;
+    color: #ffffff;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.25;
+    text-align: center;
+    box-shadow: 0 8px 18px rgba(17, 24, 60, 0.18);
+  }
+  .node span {
+    display: block;
+    margin-top: 4px;
+    font-size: 15px;
+    font-weight: 400;
+    opacity: 0.93;
+  }
+  .indigo { background: linear-gradient(135deg, #4338ca, #6366f1); }
+  .violet { background: linear-gradient(135deg, #7c3aed, #a855f7); }
+  .cyan   { background: linear-gradient(135deg, #0e7490, #22d3ee); }
+  .green  { background: linear-gradient(135deg, #047857, #34d399); }
+  .amber  { background: linear-gradient(135deg, #b45309, #fbbf24); }
+  .rose   { background: linear-gradient(135deg, #be123c, #fb7185); }
+  .slate  { background: linear-gradient(135deg, #334155, #64748b); }
+  .tight {
+    padding: 7px 14px;
+  }
+  .ghost {
+    background: #ffffff;
+    color: #312e81;
+    border: 3px dashed #a5b4fc;
+    box-shadow: none;
+  }
+  .arrow {
+    flex: 0 0 auto;
+    align-self: center;
+    color: #6366f1;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  .caption {
+    margin: 0;
+    font-size: 17px;
+    color: #475569;
+    text-align: center;
+  }
+  .bar {
+    border-radius: 14px;
+    padding: 3px 12px;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 700;
+    box-sizing: border-box;
+  }
+  .w25 { width: 100%; }
+  .w20 { width: 80%; }
+  .w15 { width: 60%; }
 footer: "Agent Harness design guide · github.com/frkim/agent-harness"
 ---
 
@@ -44,13 +182,14 @@ The control plane around an AI model
 
 <!--
 Timing plan for the whole deck (45 minutes):
-- Opening and framing: 4 min
-- Part 1 Foundations: 9 min
-- Part 2 Execution: 11 min
-- Part 3 Safety and verification: 9 min
-- Part 4 Operations and rollout: 7 min
-- Part 5 Worked example and close: 5 min
-Leave the last 3-5 minutes of the slot for questions.
+- Opening and framing: 3 min
+- Part 1 Foundations: 7 min
+- Part 2 Execution: 9 min
+- Part 3 Safety and verification: 8 min
+- Part 4 Operations and rollout: 5 min
+- Part 5 Worked example: 4 min
+- Part 6 Choosing a harness and first release: 5 min
+- Questions and close: 4 min
 -->
 
 ---
@@ -61,13 +200,14 @@ Leave the last 3-5 minutes of the slot for questions.
 - A bounded execution loop you can implement in one service.
 - Controls that hold when the model behaves unexpectedly.
 - Evidence and reporting rules that make results auditable.
+- A rubric for comparing existing harnesses at the layer you need.
 - A checklist to scope a first release.
 
 This is a design guide, not a framework: no SDK, no installation step.
 Examples are illustrative contracts and pseudocode.
 
 <!--
-Set expectations: attendees leave with vocabulary and a checklist,
+Set expectations: attendees leave with vocabulary, a rubric, and a checklist,
 not with a library to import.
 -->
 
@@ -77,16 +217,17 @@ not with a library to import.
 
 | Part | Topic | Time |
 | --- | --- | --- |
-| 1 | Foundations: why a harness, core model, lifecycle | 9 min |
-| 2 | Execution: task contracts, controller, tools, context | 11 min |
-| 3 | Safety and verification | 9 min |
-| 4 | Operations: reports, observability, rollout | 7 min |
-| 5 | Worked example, implementations, checklist | 5 min |
-| — | Questions | remaining time |
+| 1 | Foundations: why a harness, core model, lifecycle | 7 min |
+| 2 | Execution: task contracts, controller, tools, context, memory | 9 min |
+| 3 | Safety and verification | 8 min |
+| 4 | Operations: reports, observability, rollout | 5 min |
+| 5 | Worked example: retry-safe webhook ingestion | 4 min |
+| 6 | Choosing a harness: layers, rubric, adoption gates, checklist | 5 min |
+| — | Questions | 4 min |
 
 <!--
-Announce that every part maps to one chapter in docs/, so the audience
-can follow up after the session.
+Announce that every part maps to one chapter in docs/: foundations, execution,
+safety-and-verification, operations, examples, and harness-evaluation.
 -->
 
 ---
@@ -194,23 +335,33 @@ not to instructions supplied to the model.
 
 ## Reference architecture
 
-```text
-User -> Task intake (acceptance criteria) -> Controller <-> Model
-                        Context selector ->     |
-                                    Policy and budget gate
-                  denied |               | allowed      | approval required
-                   Stop  |        Tool dispatcher       Human approval
-                         |   (isolated runtime)              |
-           read-only | scoped write | verification    recheck scope/state
-                         |
-           Structured results -> Controller -> audit events + final report
-```
+<div class="row">
+<div class="node indigo">Task intake<span>objective and acceptance criteria</span></div>
+<div class="arrow">→</div>
+<div class="node violet">Controller<span>task state, budget, scheduling</span></div>
+<div class="arrow">↔</div>
+<div class="node cyan">Model<span>proposes the next action</span></div>
+</div>
 
-- The **controller** owns task state and scheduling.
-- The **dispatcher** checks identity, arguments, authorization, and limits on
-  every invocation.
-- The **runtime** enforces filesystem, process, and network boundaries even if
-  the model or a tool misbehaves.
+<div class="row">
+<div class="node amber">Policy and budget gate<span>identity · arguments · authorization · limits</span></div>
+</div>
+
+<div class="row">
+<div class="node rose">Denied<span>stop and explain</span></div>
+<div class="node slate">Approval required<span>human decides; scope rechecked</span></div>
+<div class="node green">Allowed<span>tool dispatcher</span></div>
+</div>
+
+<div class="row">
+<div class="node ghost">Isolated runtime<span>read-only · scoped writes · verification runner</span></div>
+<div class="arrow">→</div>
+<div class="node indigo">Structured results<span>audit events and final report</span></div>
+</div>
+
+The **controller** owns task state; the **dispatcher** checks every invocation;
+the **runtime** enforces filesystem, process, and network boundaries even if the
+model or a tool misbehaves.
 
 <!--
 The rendered Mermaid version of this diagram is in docs/foundations.md.
@@ -253,19 +404,29 @@ Contrast with an unstructured chat loop: each step has an exit condition.
 
 ## States, not conversation turns
 
-```text
-Received -> Orienting -> Planning -> Acting -> Verifying -> Completed
-                            |          |           |
-                         Waiting <- clarification or approval needed
-                            |          |           |
-        Stopped: rejected, expired, denied, cancelled, budget exhausted
-```
+<div class="row">
+<div class="node indigo">Received</div>
+<div class="arrow">→</div>
+<div class="node indigo">Orienting</div>
+<div class="arrow">→</div>
+<div class="node violet">Planning</div>
+<div class="arrow">→</div>
+<div class="node cyan">Acting</div>
+<div class="arrow">→</div>
+<div class="node green">Verifying</div>
+<div class="arrow">→</div>
+<div class="node green">Completed</div>
+</div>
+
+<p class="caption">Verifying → Acting is a bounded repair loop, never an open-ended retry.</p>
+
+<div class="row">
+<div class="node amber">Waiting<span>clarification or approval; revalidate before resuming</span></div>
+<div class="node rose">Stopped<span>rejected · expired · denied · cancelled · budget exhausted</span></div>
+</div>
 
 - Cancellation and deadlines apply in **every** nonterminal state.
-- A stopped run may keep useful artifacts, but must never be reported as
-  completed.
-- A verifier failure leads to a bounded repair attempt or a clear blocker —
-  not an indefinite retry loop.
+- A stopped run may keep useful artifacts, but is never reported as completed.
 
 ---
 
@@ -282,7 +443,7 @@ Received -> Orienting -> Planning -> Acting -> Verifying -> Completed
   action or a manual recovery procedure.
 
 <!--
-About thirteen minutes elapsed at the end of Part 1.
+About ten minutes elapsed at the end of Part 1.
 -->
 
 ---
@@ -333,6 +494,8 @@ not to this repository.
 The numbers on the previous slide are starting points, not production defaults.
 
 ---
+
+<!-- _class: dense -->
 
 ## Bounded controller (responsibility sketch)
 
@@ -465,8 +628,27 @@ Do not turn a model's inference into a stored fact. Re-read mutable resources
 before acting on an old summary. Partition retrieval, caches, and memory by
 tenant and authorization scope.
 
+---
+
+## Memory and skills are scoped, not authority
+
+<div class="row">
+<div class="node indigo">Task-local state<span>plan, revisions, failed checks, remaining budget</span></div>
+<div class="node violet">Durable memory<span>reviewed convention with provenance and expiry</span></div>
+<div class="node cyan">Retrieved evidence<span>code, issues, traces — untrusted instructions</span></div>
+<div class="node green">Reviewed skills<span>versioned procedure, references, expected output</span></div>
+</div>
+
+- Memory saves rediscovery; a stale convention must be **checked against current
+  code**, flagged, and corrected rather than followed.
+- A skill is a reusable procedure, **not an extra permission**: its scripts and
+  tool calls pass the same authorization and sandbox controls.
+- Never store customer payloads, credentials, or one-time approval tokens.
+
 <!--
-About twenty-four minutes elapsed at the end of Part 2.
+Example from docs/examples.md: an old memory recommends an in-process duplicate
+cache; the current multi-worker design contradicts it.
+About nineteen minutes elapsed at the end of Part 2.
 -->
 
 ---
@@ -476,6 +658,19 @@ About twenty-four minutes elapsed at the end of Part 2.
 # Part 3 — Safety and verification
 
 Defense in depth, then evidence
+
+---
+
+## Defense in depth: six layers
+
+<div class="row"><div class="node tight ghost">Prompt guidance<span>helpful, but never the control</span></div></div>
+<div class="row"><div class="node tight indigo">Task contract and policy<span>scope, limits, stop conditions</span></div></div>
+<div class="row"><div class="node tight violet">Dispatcher<span>allowlist, argument validation, authorization on every call</span></div></div>
+<div class="row"><div class="node tight amber">Approval gate<span>bound to actor, action, payload, revision, expiry</span></div></div>
+<div class="row"><div class="node tight cyan">Runtime and credentials<span>isolation, short-lived scoped secrets, restricted egress</span></div></div>
+<div class="row"><div class="node tight green">Independent verification and audit<span>trusted checks outside agent-writable scope</span></div></div>
+
+<p class="caption">Every layer must hold when the layer above it fails.</p>
 
 ---
 
@@ -564,7 +759,7 @@ checks outside agent-writable scope.
 A passing command is one piece of evidence, not a conclusion.
 
 <!--
-About thirty-three minutes elapsed at the end of Part 3.
+About twenty-seven minutes elapsed at the end of Part 3.
 -->
 
 ---
@@ -645,31 +840,100 @@ Prefer one agent and deterministic orchestration until measured evidence
 justifies more complexity.
 
 <!--
-About forty minutes elapsed at the end of Part 4.
+About thirty-two minutes elapsed at the end of Part 4.
 -->
 
 ---
 
 <!-- _class: lead -->
 
-# Part 5 — Worked example and next steps
+# Part 5 — Worked example
+
+Retry-safe webhook ingestion, from request to approved draft PR
 
 ---
 
-## Worked example: one bounded request
+<!-- _class: dense -->
 
-> Reject negative quantities in the total calculator, preserve zero-quantity
-> behavior, and prepare a patch for review. Do not publish or deploy anything.
+## One bounded request
 
-1. **Receive** — record both requirements and the no-publication constraint.
-2. **Orient** — inspect the calculator, tests, and working-tree changes.
-3. **Plan** — regression test, smallest guard, relevant checks only.
-4. **Act** — edit only the two authorized files in an isolated checkout.
-5. **Verify** — the new test fails on the baseline and passes on the candidate.
-6. **Report** — patch, checked revision, actual results, limitations.
+> Make payment webhook ingestion safe to retry, including concurrent deliveries
+> and a process restart. Keep signature validation. Add a migration, regression
+> tests, and operator documentation. Publish a draft pull request only after I
+> approve the exact candidate. No production access, merge, or deploy.
 
-Publication would be a **separately authorized** action with its own scoped,
-expiring approval.
+| Contract element | Agreed scope |
+| --- | --- |
+| Workspace | Isolated checkout, recorded baseline revision, existing user changes preserved |
+| Acceptance | Deduplicate by `(tenant_id, provider, event_id)`; repeated or concurrent deliveries create one local job |
+| Allowed edits | Handler, migration, regression tests, operator documentation — four files |
+| Required checks | Webhook regressions, tenant isolation, migration compatibility, diff review, secret scan |
+| External effects | Draft-PR publication needs a separate, scoped approval; no merge or deploy |
+
+<!--
+A hypothetical order service. Ambiguity about conflicting payloads went back to
+the owner instead of being invented by the agent.
+-->
+
+---
+
+## Act, verify, repair — until the evidence holds
+
+<div class="row">
+<div class="node indigo">Reproduce<span>duplicate and concurrent deliveries fail on the baseline</span></div>
+<div class="arrow">→</div>
+<div class="node amber">Candidate 1<span>“look up the receipt, then insert” still races</span></div>
+<div class="arrow">→</div>
+<div class="node violet">Repair<span>unique key plus one receipt/job transaction</span></div>
+<div class="arrow">→</div>
+<div class="node green">Candidate 2<span>required checks pass on a frozen revision</span></div>
+</div>
+
+<div class="row">
+<div class="node rose">Waiting for approval<span>candidate frozen, evidence retained, nothing published</span></div>
+</div>
+
+- The racy candidate is deliberate: the harness keeps the failure **visible**
+  and blocks completion instead of accepting a plausible patch.
+- Editing after a check **invalidates** the affected evidence.
+- Passing agent-written tests is not acceptance: independent checks, diff
+  review, migration risk, and secret scanning all apply.
+
+---
+
+## Restart, approve, reconcile
+
+- The checkpoint holds task and candidate IDs, evidence references, the approval
+  request, and consumed budget — not a prose conversation summary.
+- On resume the harness rechecks authorization, deadline, workspace revision,
+  and evidence freshness. No fresh budget, no reused approval.
+- Approval binds actor, action, repository and branch, candidate revision, diff
+  payload, and expiry. **Approval to publish is not approval to merge or deploy.**
+- If publication times out, reconcile the stored operation ID before retrying;
+  if the outcome cannot be established, report it as unknown.
+
+<!--
+A checkpoint alone does not guarantee exactly-once external effects; the adapter
+must deduplicate or reconcile.
+-->
+
+---
+
+<!-- _class: dense -->
+
+## What the harness added
+
+| Without these controls | Contribution of the harness |
+| --- | --- |
+| Trust stale advice or rediscover project practice | Scoped, provenance-bearing memory checked against current evidence |
+| Improvise the same debugging and migration steps | Reviewed skills supply procedures without extra authority |
+| Accept a plausible patch after one green test | A bounded act–verify–repair loop exposes the concurrency failure |
+| Treat retrieved instructions as trusted | Runtime guardrails deny unauthorized effects before execution |
+| Lose progress or blindly retry publication | Durable task state and external-effect reconciliation |
+| Report success without saying what ran | Revision-bound evidence and a human checkpoint |
+
+It does not eliminate model mistakes; it makes them detectable, bounds
+authority, and keeps unverified outcomes explicit.
 
 ---
 
@@ -684,6 +948,116 @@ expiring approval.
 
 Read-only is not risk-free: retrieval can expose private data and queries can
 exhaust resources.
+
+<!--
+About thirty-six minutes elapsed at the end of Part 5.
+-->
+
+---
+
+<!-- _class: lead -->
+
+# Part 6 — Choosing a harness
+
+Layers, rubric, decision tree, and the first release
+
+---
+
+## Compare within the layer you need
+
+<div class="row">
+<div class="node cyan">Coding runtimes and toolkits<span>Claude Code · Codex · Copilot cloud agent · Gemini CLI · OpenCode · OpenHands SDK · Pi · DeepSeek (preview)</span></div>
+<div class="node violet">Application-agent frameworks<span>LangGraph · Deep Agents · Google ADK · OpenAI Agents SDK · Strands · Pydantic AI · CrewAI</span></div>
+<div class="node green">Managed hosting<span>Foundry Agent Service · Agent Framework is a separate, code-first choice</span></div>
+</div>
+
+A framework's extensibility does not replace a ready-made coding environment,
+and a managed service does not replace application-owned authorization.
+
+Five implementation chapters plus dedicated framework and coding-runtime
+sections back this map; the evaluation page scores them layer by layer.
+
+---
+
+## The rubric: weights before winners
+
+<div class="row"><div class="col">
+<div class="bar indigo w25">Control 25% — scoped tools, approvals, execution boundaries</div>
+<div class="bar violet w25">Recovery 25% — durable state, resume, checkpoints, replay</div>
+<div class="bar cyan w20">Extensibility 20% — programmable tools, adapters, replaceable parts</div>
+<div class="bar green w15">Visibility 15% — inspectable events, logs, reviewable artifacts</div>
+<div class="bar amber w15">Setup ease 15% — less application and infrastructure work</div>
+</div></div>
+
+**Final / 100 = (25C + 25R + 20E + 15V + 15S) / 5**, on an anchored 1–5 scale;
+stars = final / 20. Unknown capabilities are "not assessed", never scored as
+absent.
+
+These are **dated editorial judgments about supplied mechanisms**, not benchmark
+results. Reweight them for your own requirements.
+
+---
+
+<!-- _class: dense -->
+
+## Scorecard highlights
+
+| Layer | Option | C / R / E / V / S | Final |
+| --- | --- | --- | --- |
+| Coding runtime | OpenHands Software Agent SDK | 4 / 3 / 5 / 4 / 3 | 76/100 |
+| Coding runtime | Claude Code, Codex, Gemini CLI | 4 / 3 / 4 / 4 / 4 | 75/100 |
+| Hosted coding agent | GitHub Copilot cloud agent | 4 / 2 / 3 / 4 / 5 | 69/100 |
+| Framework | OpenAI Agents SDK | 4 / 3 / 5 / 5 / 4 | 82/100 |
+| Framework | LangChain Deep Agents | 4 / 4 / 5 / 4 / 3 | 81/100 |
+| Framework | LangGraph | 3 / 5 / 5 / 4 / 2 | 78/100 |
+| Managed hosting | Microsoft Foundry Agent Service | 4 / 4 / 3 / 4 / 3 | 73/100 |
+
+Cost, model quality, latency, licensing, and data residency are excluded —
+treat them as adoption gates. **A lower total can still be the better fit.**
+
+<!--
+Full scorecard, per-dimension rationale, and the capability quadrant are in
+docs/harness-evaluation.md.
+-->
+
+---
+
+## Start with your requirements
+
+<div class="row"><div class="node indigo">Is the primary output a repository change?</div></div>
+
+<div class="row">
+<div class="node cyan">Yes<span>Delegated inside GitHub → Copilot cloud agent. Local or embedded loop → Claude Code, Codex, Gemini CLI, OpenCode, OpenHands SDK, Pi</span></div>
+<div class="node violet">No, but Azure-managed hosting is required<span>Foundry Agent Service; confirm region, data handling, feature maturity</span></div>
+</div>
+
+<div class="row">
+<div class="node green">Otherwise choose the abstraction<span>durable branching and checkpoints → LangGraph · packaged harness → Deep Agents · hierarchies and artifacts → Google ADK · handoffs and tracing → Agents SDK · typed tools → Pydantic AI · roles and flows → CrewAI</span></div>
+</div>
+
+<div class="row">
+<div class="node rose">None fits<span>start from a small bounded tool loop; do not adopt a larger harness because it scores well</span></div>
+</div>
+
+---
+
+<!-- _class: dense -->
+
+## Turn a shortlist into evidence
+
+1. **Pin the setup** — runtime revision, model, tools, policies, storage,
+   deployment, budget.
+2. **Run representative tasks** — success, ambiguity, denied tool use,
+   malicious retrieved instructions, budget exhaustion.
+3. **Exercise recovery** — restart during a pending approval and around a mock
+   external write. Session resume is not rollback.
+4. **Compare outcomes** — accepted-task rate, unauthorized effects, human
+   intervention, cost per accepted task, latency.
+5. **Reweight and decide** — pilot with limited permissions; expand only after
+   the controls work.
+
+Hard requirements — residency, licensing, identity, network — override every
+recommendation.
 
 ---
 
@@ -716,6 +1090,10 @@ exhaust resources.
 
 Do not expand authority just because the model can request more tools.
 
+<!--
+About forty-one minutes elapsed at the end of Part 6.
+-->
+
 ---
 
 <!-- _class: lead -->
@@ -725,8 +1103,9 @@ Do not expand authority just because the model can request more tools.
 Guide and chapters: [github.com/frkim/agent-harness](https://github.com/frkim/agent-harness)
 
 Foundations · Execution · Safety and verification · Examples · Operations
+Implementation chapters · Harness evaluation
 
 <!--
-Keep the checklist slide handy for follow-up questions about scoping a
-first release.
+Keep the checklist and scorecard slides handy for follow-up questions about
+scoping a first release.
 -->

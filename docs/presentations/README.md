@@ -44,8 +44,16 @@ PDF with `--pdf-notes` as shown above.
 
 - Keep one idea per slide and prefer lists or short tables over paragraphs.
 - Use `---` to separate slides and `<!-- comments -->` for speaker notes.
-- Use `<!-- _class: lead -->` for section title slides.
-- Marp does not render Mermaid diagrams; keep diagrams in the chapters under
-  [`docs/`](../) and use a plain-text sketch on the slide.
+- Use `<!-- _class: lead -->` for section title slides and
+  `<!-- _class: dense -->` for slides with a large table or code block.
+- Marp does not render Mermaid diagrams. Build slide diagrams from the
+  `.row`, `.col`, `.node`, `.bar`, and colour classes defined in the deck's
+  `style` block, and keep the Mermaid sources in the chapters under
+  [`docs/`](../).
+- Only `class` attributes survive the PDF export, which runs without `--html`:
+  inline `style` or `data-*` attributes and raw `<svg>` are stripped. Add new
+  styling as classes in the deck front matter.
+- Content must fit the 1280×720 canvas; the workflow builds a deck that
+  overflows without failing, so check the rendered slides yourself.
 - Check the deck locally before opening a pull request: the workflow builds
   every deck on pull requests and fails the check if a deck does not render.
